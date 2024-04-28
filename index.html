@@ -23,7 +23,7 @@
                     <i class='bx bxs-grid' ></i>
                 </div>
                 <div class="add-book">
-                    <i class='bx bx-plus'></i>
+                    <button id="addBookBtn"><i class='bx bx-plus'></i></button>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
 
     <dialog id="book-form">
         <div class="close"><i class='bx bx-window-close'></i></div>
-        <form>
+        <form id="bookForm">
             <label for="title">Title</label>
             <input type="text" id="title" name="title" maxlength="25">
 
@@ -50,7 +50,7 @@
                 <option value="want-to-read">Want to Read</option>
             </select>
 
-            <button type="submit">Add Book</button>
+            <button type="submit" id="addBookToLibBtn">Add Book</button>
         </form>
     </dialog>
 
