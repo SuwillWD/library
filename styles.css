@@ -191,6 +191,11 @@ body {
     color: rgb(30, 30, 30);
 }
 
+#readingStatus {
+    cursor: pointer;
+    color: rgb(94, 229, 60);
+}
+
 .footer {
     position: fixed;
     background-color: black;

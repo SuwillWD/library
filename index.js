@@ -42,6 +42,8 @@ function createCard(book) {
     const authorLabel = document.createElement("p");
     const noOfPagesLabel = document.createElement("p");
     const readStatusLabel = document.createElement("p");
+
+    ReadStatus.setAttribute("id", "readingStatus");
     
     titleDiv.setAttribute("class", "card-row");
     titleLabel.textContent = 'Title';
@@ -66,7 +68,13 @@ function createCard(book) {
     Title.textContent = book.title;
     Author.textContent = book.author;
     NoOfPages.textContent = book.noOfPages;
-    ReadStatus.textContent = book.readStatus;
+    ReadStatus.textContent = book.readStatus + 	' 📚';
+
+    ReadStatus.addEventListener('click', () => {
+        book.readStatus = "Read";
+        mainDisplay.textContent = "";
+        displayBook();
+    });
 
     const editDeleteCard = document.createElement("div");
     editDeleteCard.setAttribute("class", "card-buttons");
@@ -81,6 +89,8 @@ function createCard(book) {
         myLibrary.splice(index, 1);
         bookCard.remove();
     });
+
+    
 
     editDeleteCard.appendChild(editCard);
     editDeleteCard.appendChild(deleteCard);
