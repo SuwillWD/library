@@ -171,6 +171,26 @@ body {
     font-weight: 600;
 }
 
+.card-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.card-buttons button {
+    color: black;
+    font-weight: bold;
+    padding: 5px 15px;
+    font-size: 16px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card-buttons button:hover {
+    background-color: rgb(192, 192, 192);
+    color: rgb(30, 30, 30);
+}
+
 .footer {
     position: fixed;
     background-color: black;

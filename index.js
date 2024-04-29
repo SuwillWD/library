@@ -6,6 +6,9 @@ const addBookToLibBtn = document.getElementById("addBookToLibBtn");
 const mainDisplay = document.getElementById("main");
 const searchInput = document.getElementById("search-box");
 const searchBtn = document.getElementById("searchBtn");
+const deleteCard = document.querySelectorAll("delete-card");
+const editCard = document.querySelectorAll("edit-card");
+
 
 //myLibrary array for storing books data
 const myLibrary = [];
@@ -65,10 +68,28 @@ function createCard(book) {
     NoOfPages.textContent = book.noOfPages;
     ReadStatus.textContent = book.readStatus;
 
+    const editDeleteCard = document.createElement("div");
+    editDeleteCard.setAttribute("class", "card-buttons");
+    const editCard = document.createElement("button");
+    editCard.textContent = "Edit";
+    editCard.setAttribute("class", "edit-card");
+    const deleteCard = document.createElement("button");
+    deleteCard.textContent = "Delete";
+    
+    deleteCard.addEventListener('click', () => {
+        const index = myLibrary.indexOf(book);
+        myLibrary.splice(index, 1);
+        bookCard.remove();
+    });
+
+    editDeleteCard.appendChild(editCard);
+    editDeleteCard.appendChild(deleteCard);
+
     bookCard.appendChild(titleDiv);
     bookCard.appendChild(authorDiv);
     bookCard.appendChild(pagesDiv);
     bookCard.appendChild(statusDiv);
+    bookCard.appendChild(editDeleteCard);
     return mainDisplay.appendChild(bookCard);
 }
 
@@ -105,6 +126,7 @@ bookForm.addEventListener('submit', (e) => {
     const author = data.get('author');
     const noOfPages = data.get('pages');
     const readStatus = data.get('status');
+
     addBookToLibrary(title, author, noOfPages, readStatus);
     bookFormModal.close();
     bookForm.reset();
@@ -114,8 +136,30 @@ bookForm.addEventListener('submit', (e) => {
 
 searchBtn.addEventListener('click', () => {
     const searchedInput = searchInput.value;
-    if (!searchInput) {
+    if (!searchInput.value) {
+        mainDisplay.textContent = "";
         displayBook();
     } 
     displaySearchedBook(searchedInput);
 });
+
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        searchBtn.click();
+    }
+});
+
+// deleteCard.forEach(card => {
+//     console.log("click");
+//     card.addEventListener('click', () => {
+//         console.log('clicked');
+//         const indexTitle = card.getAttribute("data-index-title");
+//         for (let book of myLibrary) {
+//             if (book.title === indexTitle) {
+//                 const index = myLibrary.indexOf(book);
+//                 myLibrary.splice(index, 1);
+//             }
+//         }
+//     });
+// });
