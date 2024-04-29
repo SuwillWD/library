@@ -8,26 +8,7 @@ const searchInput = document.getElementById("search-box");
 const searchBtn = document.getElementById("searchBtn");
 
 //myLibrary array for storing books data
-const myLibrary = [
-    {
-        title: 'Harry Potter 1',
-        author: 'J.K. Rowling',
-        noOfPages: 350,
-        readStatus: 'Read'
-    },
-    {
-        title: 'Harry Potter 2',
-        author: 'J.K. Rowling',
-        noOfPages: 350,
-        readStatus: 'Read'
-    },
-    {
-        title: 'Harry Potter 3',
-        author: 'J.K. Rowling',
-        noOfPages: 350,
-        readStatus: 'Read'
-    }
-];
+const myLibrary = [];
 
 // constructor function for creating new book object
 function Book(title, author, noOfPages, readStatus) {
@@ -43,7 +24,9 @@ function addBookToLibrary(title, author, noOfPages, readStatus) {
     myLibrary.push(book);
 }
 
-function createCard(bookCard, book) {
+function createCard(book) {
+    const bookCard = document.createElement("div");
+    bookCard.setAttribute("class", "book-card");
     const titleDiv = document.createElement("div");
     const authorDiv = document.createElement("div");
     const pagesDiv = document.createElement("div");
@@ -57,18 +40,22 @@ function createCard(bookCard, book) {
     const noOfPagesLabel = document.createElement("p");
     const readStatusLabel = document.createElement("p");
     
+    titleDiv.setAttribute("class", "card-row");
     titleLabel.textContent = 'Title';
     titleDiv.appendChild(titleLabel);
     titleDiv.appendChild(Title);
 
+    authorDiv.setAttribute("class", "card-row");
     authorLabel.textContent = 'Author';
     authorDiv.appendChild(authorLabel);
     authorDiv.appendChild(Author);
 
+    pagesDiv.setAttribute("class", "card-row");
     noOfPagesLabel.textContent = 'No. of Pages';
     pagesDiv.appendChild(noOfPagesLabel);
     pagesDiv.appendChild(NoOfPages);
 
+    statusDiv.setAttribute("class", "card-row");
     readStatusLabel.textContent = 'Read Status';
     statusDiv.appendChild(readStatusLabel);
     statusDiv.appendChild(ReadStatus);
@@ -87,22 +74,18 @@ function createCard(bookCard, book) {
 
 // diaplay book on the main section in html page
 function displayBook() {
-    const bookCard = document.createElement("div");
-    bookCard.setAttribute("class", "book-card");
-
-    for (const book of myLibrary) {
-        return createCard(bookCard, book);
+    for (let book of myLibrary) {
+        createCard(book);
     }
 }
 
 // Display the searched book
 function displaySearchedBook(searchedInput) {
-    const bookCard = document.createElement("div");
-    bookCard.setAttribute("class", "book-card");
 
     for (const book of myLibrary) {
         if (book.title === searchedInput) {
-            return createCard(bookCard, book);
+            mainDisplay.textContent = '';
+            return createCard(book);
         }
     }
     bookCard.textContent = 'No Book found.';
@@ -125,10 +108,14 @@ bookForm.addEventListener('submit', (e) => {
     addBookToLibrary(title, author, noOfPages, readStatus);
     bookFormModal.close();
     bookForm.reset();
+    mainDisplay.innerHTML = '';
     displayBook();
 });
 
 searchBtn.addEventListener('click', () => {
     const searchedInput = searchInput.value;
+    if (!searchInput) {
+        displayBook();
+    } 
     displaySearchedBook(searchedInput);
 });
