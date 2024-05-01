@@ -77,10 +77,7 @@ function createCard(book) {
     });
 
     const editDeleteCard = document.createElement("div");
-    editDeleteCard.setAttribute("class", "card-buttons");
-    const editCard = document.createElement("button");
-    editCard.textContent = "Edit";
-    editCard.setAttribute("class", "edit-card");
+    editDeleteCard.setAttribute("class", "card-buttons");;
     const deleteCard = document.createElement("button");
     deleteCard.textContent = "Delete";
     
@@ -90,9 +87,6 @@ function createCard(book) {
         bookCard.remove();
     });
 
-    
-
-    editDeleteCard.appendChild(editCard);
     editDeleteCard.appendChild(deleteCard);
 
     bookCard.appendChild(titleDiv);
@@ -144,6 +138,8 @@ bookForm.addEventListener('submit', (e) => {
     displayBook();
 });
 
+
+// gets the searched input and calls the display search book function 
 searchBtn.addEventListener('click', () => {
     const searchedInput = searchInput.value;
     if (!searchInput.value) {
@@ -153,23 +149,10 @@ searchBtn.addEventListener('click', () => {
     displaySearchedBook(searchedInput);
 });
 
+// Option to enable searching even the ENTER key is pressed instead of the search button
 searchInput.addEventListener('keypress', (e) => {
     if (e.key === "Enter") {
         e.preventDefault();
         searchBtn.click();
     }
 });
-
-// deleteCard.forEach(card => {
-//     console.log("click");
-//     card.addEventListener('click', () => {
-//         console.log('clicked');
-//         const indexTitle = card.getAttribute("data-index-title");
-//         for (let book of myLibrary) {
-//             if (book.title === indexTitle) {
-//                 const index = myLibrary.indexOf(book);
-//                 myLibrary.splice(index, 1);
-//             }
-//         }
-//     });
-// });
